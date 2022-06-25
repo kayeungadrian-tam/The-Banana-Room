@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Add2List extends StatefulWidget {
+  const Add2List({Key? key}) : super(key: key);
   @override
   _State createState() => _State();
 }
@@ -35,17 +36,17 @@ class _State extends State<Add2List> {
         ),
         body: Column(children: <Widget>[
           Padding(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: TextField(
               controller: nameController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Contact Name',
               ),
             ),
           ),
-          RaisedButton(
-            child: Text('Add'),
+          ElevatedButton(
+            child: const Text('Add'),
             onPressed: () {
               addItemToList();
             },
@@ -57,7 +58,7 @@ class _State extends State<Add2List> {
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       height: 50,
-                      margin: EdgeInsets.all(2),
+                      margin: const EdgeInsets.all(2),
                       color: msgCount[index] >= 10
                           ? Colors.blue[400]
                           : msgCount[index] > 3

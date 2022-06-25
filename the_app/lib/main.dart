@@ -72,7 +72,7 @@ class IndexPageState extends StatelessWidget {
               textStyle: const TextStyle(fontSize: 32),
             ),
             child: const Text(
-              "Puzzle2",
+              "List D&D",
               style: TextStyle(fontSize: 22),
             ),
           )),
@@ -92,6 +92,24 @@ class IndexPageState extends StatelessWidget {
             ),
             child: const Text(
               "Home",
+              style: TextStyle(fontSize: 22),
+            ),
+          )),
+      const SizedBox(
+        height: 32,
+      ),
+      SizedBox(
+          width: 200,
+          height: 50,
+          child: ElevatedButton(
+            // onPressed: () => showPuzzlePage(context),
+            onPressed: () => showPage(context, const Add2List()),
+            style: ElevatedButton.styleFrom(
+              primary: Colors.purple[900],
+              textStyle: const TextStyle(fontSize: 32),
+            ),
+            child: const Text(
+              "Add2List",
               style: TextStyle(fontSize: 22),
             ),
           )),
