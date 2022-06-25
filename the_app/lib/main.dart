@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-// import 'dart:typed_data';
 import 'dart:io';
-// import 'dart:convert';
-// import 'package:shared_preferences/shared_preferences.dart';
-import 'package:the_app/sandbox/puzzlePage.dart';
-import 'package:the_app/sandbox/puzzleTwo.dart';
+
+import 'package:the_app/sandbox/puzzle_page.dart';
+import 'package:the_app/sandbox/list_dragdrop.dart';
+import 'package:the_app/sandbox/add_to_list.dart';
 
 void main() {
   runApp(const MyApp());
