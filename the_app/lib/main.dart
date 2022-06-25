@@ -3,6 +3,9 @@ import 'package:image_picker/image_picker.dart';
 // import 'dart:typed_data';
 import 'dart:io';
 // import 'dart:convert';
+// import 'package:shared_preferences/shared_preferences.dart';
+import 'package:the_app/puzzle/puzzlePage.dart';
+import 'package:the_app/puzzle/puzzleTwo.dart';
 
 void main() {
   runApp(const MyApp());
@@ -49,21 +52,56 @@ class IndexPageState extends StatelessWidget {
           width: 200,
           height: 50,
           child: ElevatedButton(
-            onPressed: () => showHomePage(context),
+            onPressed: () => showPage(context, const PuzzlePage()),
+            // onPressed: () => showHomePage(context),
             child: const Text(
-              "Start",
+              "Puzzle",
               style: TextStyle(fontSize: 22),
             ),
-          ))
+          )),
+      const SizedBox(
+        height: 32,
+      ),
+      SizedBox(
+          width: 200,
+          height: 50,
+          child: ElevatedButton(
+            // onPressed: () => showPuzzlePage(context),
+            onPressed: () => showPage(context, const HomePage()),
+            style: ElevatedButton.styleFrom(
+              primary: Colors.brown[500],
+              textStyle: const TextStyle(fontSize: 32),
+            ),
+            child: const Text(
+              "Puzzle2",
+              style: TextStyle(fontSize: 22),
+            ),
+          )),
+      const SizedBox(
+        height: 32,
+      ),
+      SizedBox(
+          width: 200,
+          height: 50,
+          child: ElevatedButton(
+            // onPressed: () => showPuzzlePage(context),
+            onPressed: () =>
+                showPage(context, const MyHomePage(title: "My Dashboard")),
+            style: ElevatedButton.styleFrom(
+              primary: Colors.cyan[200],
+              textStyle: const TextStyle(fontSize: 32),
+            ),
+            child: const Text(
+              "Home",
+              style: TextStyle(fontSize: 22),
+            ),
+          )),
     ])));
   }
 }
 
-void showHomePage(BuildContext context) {
-  Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => const MyHomePage(title: "My Dashboard")));
+void showPage(BuildContext context, page) {
+  Navigator.push(context, MaterialPageRoute(builder: (context) => page));
 }
 
 class MyHomePage extends StatefulWidget {
@@ -178,5 +216,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-void onPressed() => {};
