@@ -4,8 +4,8 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 // import 'dart:convert';
 // import 'package:shared_preferences/shared_preferences.dart';
-import 'package:the_app/puzzle/puzzlePage.dart';
-import 'package:the_app/puzzle/puzzleTwo.dart';
+import 'package:the_app/sandbox/puzzlePage.dart';
+import 'package:the_app/sandbox/puzzleTwo.dart';
 
 void main() {
   runApp(const MyApp());
