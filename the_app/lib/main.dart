@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+// import 'dart:typed_data';
+import 'dart:io';
+// import 'dart:convert';
+// import 'package:shared_preferences/shared_preferences.dart';
+import 'package:the_app/puzzle/puzzlePage.dart';
+import 'package:the_app/puzzle/puzzleTwo.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,9 +31,77 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      // home: const MyHomePage(title: 'The Banana Game'),
+      home: const IndexPageState(),
     );
   }
+}
+
+class IndexPageState extends StatelessWidget {
+  const IndexPageState({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Center(
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      const Text("The Banana Game", style: TextStyle(fontSize: 32)),
+      const SizedBox(height: 50),
+      SizedBox(
+          width: 200,
+          height: 50,
+          child: ElevatedButton(
+            onPressed: () => showPage(context, const PuzzlePage()),
+            // onPressed: () => showHomePage(context),
+            child: const Text(
+              "Puzzle",
+              style: TextStyle(fontSize: 22),
+            ),
+          )),
+      const SizedBox(
+        height: 32,
+      ),
+      SizedBox(
+          width: 200,
+          height: 50,
+          child: ElevatedButton(
+            // onPressed: () => showPuzzlePage(context),
+            onPressed: () => showPage(context, const HomePage()),
+            style: ElevatedButton.styleFrom(
+              primary: Colors.brown[500],
+              textStyle: const TextStyle(fontSize: 32),
+            ),
+            child: const Text(
+              "Puzzle2",
+              style: TextStyle(fontSize: 22),
+            ),
+          )),
+      const SizedBox(
+        height: 32,
+      ),
+      SizedBox(
+          width: 200,
+          height: 50,
+          child: ElevatedButton(
+            // onPressed: () => showPuzzlePage(context),
+            onPressed: () =>
+                showPage(context, const MyHomePage(title: "My Dashboard")),
+            style: ElevatedButton.styleFrom(
+              primary: Colors.cyan[200],
+              textStyle: const TextStyle(fontSize: 32),
+            ),
+            child: const Text(
+              "Home",
+              style: TextStyle(fontSize: 22),
+            ),
+          )),
+    ])));
+  }
+}
+
+void showPage(BuildContext context, page) {
+  Navigator.push(context, MaterialPageRoute(builder: (context) => page));
 }
 
 class MyHomePage extends StatefulWidget {
@@ -44,11 +119,15 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
+  // State<MyHomePage> createState() => _MyHomePageState();
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+
+  final ImagePicker _picker = ImagePicker();
+  File? _pickedImage;
 
   void _incrementCounter() {
     setState(() {
@@ -96,12 +175,36 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'You have pushed the button this many times:',
+              'Selected Image',
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                  width: 300,
+                  child: _pickedImage == null
+                      ? Text('')
+                      : Image.file(_pickedImage!)),
             ),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
+            const Text("Starting"),
+            const SizedBox(height: 24),
+            ElevatedButton(
+              // onPressed: () => {},
+              onPressed: () async {
+                final pickedFile =
+                    await _picker.pickImage(source: ImageSource.gallery);
+                if (pickedFile == null) {
+                  return;
+                }
+                setState(() {
+                  _pickedImage = File(pickedFile.path);
+                });
+              },
+              child: const Text('選ぶ'),
+            )
           ],
         ),
       ),
