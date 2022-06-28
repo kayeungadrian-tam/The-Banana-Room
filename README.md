@@ -20,7 +20,9 @@ A list of useful resources!
 |---|---------|------|------|
 |  1 |    Flutter×Flaskで物体検出するアプリ作ってみた!     |  [link](https://zenn.dev/wakanao/articles/80a59ce3f27580)    |   JP   |
 |  2 |     Flutter Image Picker    |   [link](https://educity.app/flutter/how-to-pick-an-image-from-gallery-and-display-it-in-flutter)   |  EN    |
-|  3 |         |      |      |
+|  3 |    Flutter カードめくりアニメーションを実装する     |  [link](https://www.egao-inc.co.jp/programming/flutter_card_amination/)    |  JP    |
+|  4 |   Flutter大学      |   [link](https://flutteruniv.com/)    |  JP    |
+|  5 |         |      |      |
 
 
 ## Error&Solutions
