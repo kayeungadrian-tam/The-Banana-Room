@@ -11,6 +11,8 @@ class _State extends State<Add2List> {
   final List<String> names = <String>[];
   final List<int> msgCount = <int>[];
   final List<int> players = <int>[];
+  final List<bool> showItem = <bool>[];
+
   Random random = new Random();
   TextEditingController _textFieldController = TextEditingController();
 
@@ -18,6 +20,9 @@ class _State extends State<Add2List> {
   String codeDialog = "";
   String valueText = "";
   int currentValue = 0;
+
+  String question = "駅の人気";
+  String description = "人気度";
 
   Future<void> _displayTextInputDialog(BuildContext context, int index) async {
     _textFieldController.clear();
@@ -29,7 +34,7 @@ class _State extends State<Add2List> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('気になる度', style: TextStyle(fontSize: 22)),
+                  Text(description, style: TextStyle(fontSize: 22)),
                   Text('$currentValue',
                       style: TextStyle(
                         fontSize: 40,
@@ -50,12 +55,12 @@ class _State extends State<Add2List> {
                 });
               },
               controller: _textFieldController,
-              decoration: InputDecoration(hintText: "エイドリアンが気になるおもちゃ"),
+              decoration: InputDecoration(hintText: ""),
             ),
             actions: <Widget>[
               IconButton(
                 color: Colors.red,
-                icon: const Icon(Icons.cancel_outlined),
+                icon: const Icon(Icons.cancel),
                 onPressed: () {
                   setState(() {
                     Navigator.pop(context);
@@ -63,8 +68,8 @@ class _State extends State<Add2List> {
                 },
               ),
               IconButton(
-                color: Colors.green,
-                icon: const Icon(Icons.check_circle_outlined),
+                color: Colors.blue[900],
+                icon: const Icon(Icons.check_circle),
                 onPressed: () {
                   setState(() {
                     codeDialog = valueText;
@@ -77,6 +82,9 @@ class _State extends State<Add2List> {
                     players.length == 0
                         ? players.insert(0, 1)
                         : players.insert(index + 1, names.length);
+                    showItem.length == 0
+                        ? showItem.insert(0, false)
+                        : showItem.insert(index + 1, false);
                     Navigator.pop(context);
                   });
                 },
@@ -93,23 +101,32 @@ class _State extends State<Add2List> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        titleSpacing: 0,
+        // leading: Icon(Icons.menu),
+        centerTitle: true,
         title: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Column(children: [
             const SizedBox(
               height: 12,
             ),
-            Text('エイドリアンが気になるおもちゃは？',
-                style: TextStyle(fontSize: 22, fontFamily: "Roboto")),
+            Text(question,
+                style: TextStyle(fontSize: 14, fontFamily: "Roboto")),
             const SizedBox(
               height: 12,
             ),
             Text('0: 気にならない <----> 100: 気になる',
-                style: TextStyle(fontSize: 18, fontFamily: "Roboto")),
+                style: TextStyle(fontSize: 10, fontFamily: "Roboto")),
             const SizedBox(
               height: 12,
             ),
-          ])
+          ]),
         ]),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.menu_open_sharp),
+            onPressed: () {},
+          )
+        ],
       ),
       body: Column(children: <Widget>[
         SizedBox(height: 32),
@@ -118,8 +135,6 @@ class _State extends State<Add2List> {
             const SizedBox(
               width: 32,
             ),
-            Text("Player ${names.length + 1}",
-                style: TextStyle(fontSize: 32, fontFamily: "Roboto")),
           ],
         ),
         Expanded(
@@ -134,7 +149,7 @@ class _State extends State<Add2List> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SizedBox(
-                                width: 80,
+                                width: 60,
                                 child: Center(
                                     child: Text("Player ${players[index]}",
                                         style: TextStyle(
@@ -151,21 +166,21 @@ class _State extends State<Add2List> {
                                         })
                                     : Container(),
                                 Card(
-                                    semanticContainer: true,
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     elevation: 5,
-                                    margin: EdgeInsets.all(10),
                                     child: InkWell(
                                       splashColor: Colors.blue.withAlpha(30),
                                       onTap: () {
                                         // _displayTextInputDialog(context);
+                                        setState(() {
+                                          showItem[index] = !showItem[index];
+                                        });
                                       },
                                       child: Column(children: [
                                         SizedBox(
-                                            width: 300,
+                                            width: 240,
                                             height: 100,
                                             child: ElevatedCardExample(
                                               title: "${names[index]}",
@@ -183,14 +198,16 @@ class _State extends State<Add2List> {
                                         : const SizedBox()
                                     : const SizedBox(),
                               ]),
-                              SizedBox(
-                                width: 60,
-                                child: Center(
-                                    child: Text("${msgCount[index]}",
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontFamily: "Roboto"))),
-                              ),
+                              showItem[index]
+                                  ? SizedBox(
+                                      width: 60,
+                                      child: Center(
+                                          child: Text("${msgCount[index]}",
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontFamily: "Roboto"))),
+                                    )
+                                  : const SizedBox(),
                             ]),
                       ));
                 }))
@@ -210,13 +227,18 @@ class _State extends State<Add2List> {
                 showDialog<String>(
                   context: context,
                   builder: (BuildContext context) => AlertDialog(
-                    title: Text(""),
+                    title: Center(
+                        child: Text("Player ${names.length + 1}",
+                            style: TextStyle(
+                                fontSize: 32,
+                                fontFamily: "Roboto",
+                                decoration: TextDecoration.underline))),
                     content: SizedBox(
                         height: 200,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('気になる度', style: TextStyle(fontSize: 22)),
+                            Text(description, style: TextStyle(fontSize: 22)),
                             Text('$currentValue',
                                 style: TextStyle(
                                   fontSize: 40,
@@ -236,8 +258,8 @@ class _State extends State<Add2List> {
                         },
                         child: Center(
                           child: IconButton(
-                            color: Colors.green,
-                            icon: const Icon(Icons.check_circle_outlined),
+                            color: Colors.blue[900],
+                            icon: const Icon(Icons.check_circle),
                             onPressed: () => {Navigator.pop(context)},
                           ),
                         ),
