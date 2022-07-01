@@ -22,7 +22,7 @@ A list of useful resources!
 |  2 |     Flutter Image Picker    |   [link](https://educity.app/flutter/how-to-pick-an-image-from-gallery-and-display-it-in-flutter)   |  EN    |
 |  3 |    Flutter カードめくりアニメーションを実装する     |  [link](https://www.egao-inc.co.jp/programming/flutter_card_amination/)    |  JP    |
 |  4 |   Flutter大学      |   [link](https://flutteruniv.com/)    |  JP    |
-|  5 |         |      |      |
+|  5 |     Flutter ML-kit    |   [link](https://github.com/bharat-biradar/Google-Ml-Kit-plugin)   |   EN   |
 
 
 ## Error&Solutions
