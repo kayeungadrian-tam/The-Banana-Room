@@ -20,9 +20,24 @@ class _State extends State<Add2List> {
   String codeDialog = "";
   String valueText = "";
   int currentValue = 0;
+  int question_index = 0;
 
-  String question = "駅の人気";
+  List<String> question = [
+    "駅の人気",
+    "トイレットペーパーの代用品",
+    "最近のキラキラName",
+    "うまくサボる方法",
+    "肉の調理法"
+  ];
   String description = "人気度";
+  String explanation = "0: 人気がない  <-->  100: 人気がある";
+  String how_to_play = '''【遊び方】
+  -1- \n右下の[+]を押して、人気度の数値が表示されます。\n
+  -2- \n上のお題に対して、適切なものを入力してください。\n
+  -3- \n入力したものを、既にあるカードのうち一番適切な場所に追加してください。\n
+  -4- \n全員が答えを入力したら、カードをタップすると数値が表示されます。\n
+  -5- \n全てのカードが、上から大きい順に並んでいたら成功。\n
+  ''';
 
   Future<void> _displayTextInputDialog(BuildContext context, int index) async {
     _textFieldController.clear();
@@ -109,13 +124,13 @@ class _State extends State<Add2List> {
             const SizedBox(
               height: 12,
             ),
-            Text(question,
-                style: TextStyle(fontSize: 14, fontFamily: "Roboto")),
+            Text(question[question_index],
+                style: TextStyle(fontSize: 16, fontFamily: "Roboto")),
             const SizedBox(
-              height: 12,
+              height: 4,
             ),
-            Text('0: 気にならない <----> 100: 気になる',
-                style: TextStyle(fontSize: 10, fontFamily: "Roboto")),
+            Text(explanation,
+                style: TextStyle(fontSize: 12, fontFamily: "Roboto")),
             const SizedBox(
               height: 12,
             ),
@@ -123,8 +138,13 @@ class _State extends State<Add2List> {
         ]),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.menu_open_sharp),
-            onPressed: () {},
+            icon: Icon(Icons.refresh_outlined),
+            onPressed: () {
+              setState(() {
+                // question.add("トイレットペーパーの代用品");
+                question_index = random.nextInt(question.length);
+              });
+            },
           )
         ],
       ),
@@ -137,80 +157,88 @@ class _State extends State<Add2List> {
             ),
           ],
         ),
-        Expanded(
-            child: ListView.builder(
-                padding: const EdgeInsets.all(8),
-                itemCount: names.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                      margin: const EdgeInsets.all(2),
-                      child: Center(
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: 60,
-                                child: Center(
-                                    child: Text("Player ${players[index]}",
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontFamily: "Roboto"))),
-                              ),
-                              Column(children: [
-                                showButton
-                                    ? IconButton(
-                                        icon: const Icon(Icons.add),
-                                        onPressed: () {
-                                          _displayTextInputDialog(
-                                              context, index - 1);
-                                        })
-                                    : Container(),
-                                Card(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    elevation: 5,
-                                    child: InkWell(
-                                      splashColor: Colors.blue.withAlpha(30),
-                                      onTap: () {
-                                        // _displayTextInputDialog(context);
-                                        setState(() {
-                                          showItem[index] = !showItem[index];
-                                        });
-                                      },
-                                      child: Column(children: [
-                                        SizedBox(
-                                            width: 240,
-                                            height: 100,
-                                            child: ElevatedCardExample(
-                                              title: "${names[index]}",
-                                            ))
-                                      ]),
-                                    )),
-                                index == names.length - 1
-                                    ? showButton
+        names.length > 0
+            ? Expanded(
+                child: ListView.builder(
+                    padding: const EdgeInsets.all(8),
+                    itemCount: names.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                          margin: const EdgeInsets.all(2),
+                          child: Center(
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: 60,
+                                    child: Center(
+                                        child: Text("Player ${players[index]}",
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                fontFamily: "Roboto"))),
+                                  ),
+                                  Column(children: [
+                                    showButton
                                         ? IconButton(
                                             icon: const Icon(Icons.add),
                                             onPressed: () {
                                               _displayTextInputDialog(
-                                                  context, index);
+                                                  context, index - 1);
                                             })
-                                        : const SizedBox()
-                                    : const SizedBox(),
-                              ]),
-                              showItem[index]
-                                  ? SizedBox(
-                                      width: 60,
-                                      child: Center(
-                                          child: Text("${msgCount[index]}",
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontFamily: "Roboto"))),
-                                    )
-                                  : const SizedBox(),
-                            ]),
-                      ));
-                }))
+                                        : Container(),
+                                    Card(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        elevation: 5,
+                                        child: InkWell(
+                                          splashColor:
+                                              Colors.blue.withAlpha(30),
+                                          onTap: () {
+                                            // _displayTextInputDialog(context);
+                                            setState(() {
+                                              showItem[index] =
+                                                  !showItem[index];
+                                            });
+                                          },
+                                          child: Column(children: [
+                                            SizedBox(
+                                                width: 240,
+                                                height: 100,
+                                                child: ElevatedCardExample(
+                                                  title: "${names[index]}",
+                                                ))
+                                          ]),
+                                        )),
+                                    index == names.length - 1
+                                        ? showButton
+                                            ? IconButton(
+                                                icon: const Icon(Icons.add),
+                                                onPressed: () {
+                                                  _displayTextInputDialog(
+                                                      context, index);
+                                                })
+                                            : const SizedBox()
+                                        : const SizedBox(),
+                                  ]),
+                                  showItem[index]
+                                      ? SizedBox(
+                                          width: 60,
+                                          child: Center(
+                                              child: Text("${msgCount[index]}",
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      fontFamily: "Roboto"))),
+                                        )
+                                      : const SizedBox(),
+                                ]),
+                          ));
+                    }))
+            : Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Text(how_to_play,
+                    style: TextStyle(fontSize: 14, fontFamily: "Roboto"))),
       ]),
       floatingActionButton: !showButton
           ? FloatingActionButton(

@@ -1,3 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:the_app/main.dart';
+import 'login.dart';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -6,42 +11,49 @@ import 'package:the_app/sandbox/puzzle_page.dart';
 import 'package:the_app/sandbox/list_dragdrop.dart';
 import 'package:the_app/sandbox/add_to_list.dart';
 
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
-
-import 'screens/login.dart';
-
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  runApp(const MyApp());
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  // This widget is the root of your application.
+_signOut() async {
+  await _firebaseAuth.signOut();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+    return Scaffold(
+      backgroundColor: Colors.grey[200],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('You have logged in Successfuly'),
+            SizedBox(height: 50),
+            Container(
+              height: 60,
+              width: 150,
+              child: ElevatedButton(
+                  clipBehavior: Clip.hardEdge,
+                  child: Center(
+                    child: Text('Log out'),
+                  ),
+                  onPressed: () async {
+                    await _signOut();
+                    if (_firebaseAuth.currentUser == null) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                      );
+                    }
+                  }),
+            )
+          ],
+        ),
       ),
-      // home: const MyHomePage(title: 'The Banana Game'),
-      // home: const IndexPageState(),
-      home: LoginScreen(),
     );
   }
 }
@@ -52,78 +64,95 @@ class IndexPageState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          title: const Text('HOME PAGE'),
+          actions: [
+            IconButton(
+              onPressed: () async {
+                await _signOut();
+                if (_firebaseAuth.currentUser == null) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                }
+              },
+              icon: const Icon(Icons.exit_to_app),
+            ),
+          ],
+        ),
         body: Center(
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-      const Text("The Banana Game", style: TextStyle(fontSize: 32)),
-      const SizedBox(height: 50),
-      SizedBox(
-          width: 200,
-          height: 50,
-          child: ElevatedButton(
-            onPressed: () => showPage(context, const PuzzlePage()),
-            // onPressed: () => showHomePage(context),
-            child: const Text(
-              "Puzzle",
-              style: TextStyle(fontSize: 22),
-            ),
-          )),
-      const SizedBox(
-        height: 32,
-      ),
-      SizedBox(
-          width: 200,
-          height: 50,
-          child: ElevatedButton(
-            // onPressed: () => showPuzzlePage(context),
-            onPressed: () => showPage(context, const HomePage()),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.brown[500],
-              textStyle: const TextStyle(fontSize: 32),
-            ),
-            child: const Text(
-              "List D&D",
-              style: TextStyle(fontSize: 22),
-            ),
-          )),
-      const SizedBox(
-        height: 32,
-      ),
-      SizedBox(
-          width: 200,
-          height: 50,
-          child: ElevatedButton(
-            // onPressed: () => showPuzzlePage(context),
-            onPressed: () =>
-                showPage(context, const MyHomePage(title: "My Dashboard")),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.cyan[200],
-              textStyle: const TextStyle(fontSize: 32),
-            ),
-            child: const Text(
-              "Home",
-              style: TextStyle(fontSize: 22),
-            ),
-          )),
-      const SizedBox(
-        height: 32,
-      ),
-      SizedBox(
-          width: 200,
-          height: 50,
-          child: ElevatedButton(
-            // onPressed: () => showPuzzlePage(context),
-            onPressed: () => showPage(context, const Add2List()),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.purple[900],
-              textStyle: const TextStyle(fontSize: 32),
-            ),
-            child: const Text(
-              "Add2List",
-              style: TextStyle(fontSize: 22),
-            ),
-          )),
-    ])));
+          const Text("The Banana Game", style: TextStyle(fontSize: 32)),
+          const SizedBox(height: 50),
+          SizedBox(
+              width: 200,
+              height: 50,
+              child: ElevatedButton(
+                onPressed: () => showPage(context, const PuzzlePage()),
+                // onPressed: () => showHomePage(context),
+                child: const Text(
+                  "Puzzle",
+                  style: TextStyle(fontSize: 22),
+                ),
+              )),
+          const SizedBox(
+            height: 32,
+          ),
+          SizedBox(
+              width: 200,
+              height: 50,
+              child: ElevatedButton(
+                // onPressed: () => showPuzzlePage(context),
+                onPressed: () => showPage(context, const HomePage()),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.brown[500],
+                  textStyle: const TextStyle(fontSize: 32),
+                ),
+                child: const Text(
+                  "List D&D",
+                  style: TextStyle(fontSize: 22),
+                ),
+              )),
+          const SizedBox(
+            height: 32,
+          ),
+          SizedBox(
+              width: 200,
+              height: 50,
+              child: ElevatedButton(
+                // onPressed: () => showPuzzlePage(context),
+                onPressed: () =>
+                    showPage(context, const MyHomePage(title: "My Dashboard")),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.cyan[200],
+                  textStyle: const TextStyle(fontSize: 32),
+                ),
+                child: const Text(
+                  "Home",
+                  style: TextStyle(fontSize: 22),
+                ),
+              )),
+          const SizedBox(
+            height: 32,
+          ),
+          SizedBox(
+              width: 200,
+              height: 50,
+              child: ElevatedButton(
+                // onPressed: () => showPuzzlePage(context),
+                onPressed: () => showPage(context, const Add2List()),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.purple[900],
+                  textStyle: const TextStyle(fontSize: 32),
+                ),
+                child: const Text(
+                  "Add2List",
+                  style: TextStyle(fontSize: 22),
+                ),
+              )),
+        ])));
   }
 }
 
