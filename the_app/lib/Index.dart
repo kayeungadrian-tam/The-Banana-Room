@@ -1,13 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:google_fonts/google_fonts.dart';
-import 'package:the_app/screens/button.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:lottie/lottie.dart';
-import "dart:async";
+import 'package:the_app/screens/button.dart';
+import 'package:the_app/screens/login.dart';
 
 final titleFont = GoogleFonts.libreBaskerville(
   color: Colors.white,
@@ -139,12 +136,12 @@ class _NewLoginScreen extends State<NewLoginScreen> {
                                                 .signInWithEmailAndPassword(
                                                     email: email,
                                                     password: password);
-                                            // await Navigator.of(context).push(
-                                            //   MaterialPageRoute(
-                                            //       // builder: (contex) => HomeScreen(),
-                                            //       builder: ((context) =>
-                                            //           IndexPageState())),
-                                            // );
+                                            await Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  // builder: (contex) => HomeScreen(),
+                                                  builder: ((context) =>
+                                                      LoginScreen())),
+                                            );
 
                                             showDialog(
                                               context: context,
