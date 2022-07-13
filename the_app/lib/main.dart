@@ -1,19 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 import 'dart:async';
-import 'package:the_app/sandbox/puzzle_page.dart';
-import 'package:the_app/sandbox/list_dragdrop.dart';
-import 'package:the_app/sandbox/add_to_list.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:the_app/Index.dart';
+
 import 'firebase_options.dart';
-
-import 'screens/login.dart';
-import 'screens/home.dart';
-import 'screens/icon_page.dart';
-
-import 'Index.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,7 +38,7 @@ class MyApp extends StatelessWidget {
         // theme: _lightTheme,
         // home: const MyHomePage(title: 'The Banana Game'),
         // home: const IndexPageState(),
-        // home: LoginScreen(),
+        // home: LoginScreen());
         // home: const AppPage(),
         home: NewLoginScreen());
   }

@@ -1,13 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:google_fonts/google_fonts.dart';
-import 'package:the_app/screens/button.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:lottie/lottie.dart';
-import "dart:async";
+import 'package:the_app/screens/button.dart';
 
 final titleFont = GoogleFonts.libreBaskerville(
   color: Colors.white,
@@ -76,7 +72,7 @@ class _NewLoginScreen extends State<NewLoginScreen> {
                                       height: 150,
                                       child: Center(
                                         child: Lottie.network(
-                                            "https://assets3.lottiefiles.com/private_files/lf30_vuxs5lpt.json"),
+                                            "https://assets4.lottiefiles.com/packages/lf20_w9bdffcb.json"),
                                       ),
                                     ),
                                     Center(
