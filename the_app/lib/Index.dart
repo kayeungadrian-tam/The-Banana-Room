@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+import 'package:the_app/Home.dart';
 import 'package:the_app/screens/button.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -139,29 +140,12 @@ class _NewLoginScreen extends State<NewLoginScreen> {
                                                 .signInWithEmailAndPassword(
                                                     email: email,
                                                     password: password);
-                                            // await Navigator.of(context).push(
-                                            //   MaterialPageRoute(
-                                            //       // builder: (contex) => HomeScreen(),
-                                            //       builder: ((context) =>
-                                            //           IndexPageState())),
-                                            // );
-
-                                            showDialog(
-                                              context: context,
-                                              builder: (ctx) => AlertDialog(
-                                                title: Text("Success!"),
-                                                content: Text('Welcome'),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      Navigator.of(ctx).pop();
-                                                    },
-                                                    child: Text('Okay'),
-                                                  )
-                                                ],
-                                              ),
+                                            await Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  // builder: (contex) => HomeScreen(),
+                                                  builder: ((context) =>
+                                                      UserHome())),
                                             );
-
                                             setState(() {
                                               isloading = false;
                                             });

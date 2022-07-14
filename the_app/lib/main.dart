@@ -47,8 +47,8 @@ class MyApp extends StatelessWidget {
         // theme: _lightTheme,
         // home: const MyHomePage(title: 'The Banana Game'),
         // home: const IndexPageState(),
-        // home: LoginScreen(),
-        // home: const AppPage(),
-        home: NewLoginScreen());
+        // home: LoginScreen());
+    // home: const AppPage(),
+    home: NewLoginScreen());
   }
 }

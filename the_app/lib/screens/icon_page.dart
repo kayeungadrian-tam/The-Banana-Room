@@ -99,7 +99,7 @@ class _AppPageState extends State<AppPage> with TickerProviderStateMixin {
         // MyCard()
       ])),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.grey[200],
+        backgroundColor: Colors.grey.withOpacity(0.7),
         selectedItemColor: Colors.white,
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
