@@ -1,17 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:lottie/lottie.dart';
 import 'package:nanoid/nanoid.dart';
 
-import 'button.dart';
 import '../constant.dart';
+import 'button.dart';
 import 'home.dart';
 import 'register.dart';
-
-import 'package:lottie/lottie.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -110,11 +107,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                   onPressed: () async {
                                     // ドキュメント作成
                                     await FirebaseFirestore.instance
-                                        .collection('users') // コレクションID
+                                        .collection(
+                                            'test_collection') // コレクションID
                                         .doc('${nanoid(10)}') // ドキュメントID
                                         .set({
                                       'name': '${email}',
-                                      'age': 20
+                                      // 'age': 20
                                     }); // データ
                                   },
                                 ),
