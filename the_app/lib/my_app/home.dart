@@ -35,6 +35,8 @@ class _JankenPageState extends State<chenge_app> {
                   },
                   child: Text('             じゃんけん             '),
                 ),
+
+                // Next Buttomn
                 ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(
