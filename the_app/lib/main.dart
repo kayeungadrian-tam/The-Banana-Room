@@ -2,7 +2,11 @@ import 'dart:async';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:the_app/Index.dart';
+=======
+import 'package:the_app/my_app/home.dart';
+>>>>>>> feature/003_win
 
 import 'firebase_options.dart';
 
@@ -37,9 +41,17 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         // theme: _lightTheme,
         // home: const MyHomePage(title: 'The Banana Game'),
+<<<<<<< HEAD
         // home: const IndexPageState(),
         // home: LoginScreen());
+=======
+        // home: const IndexPageState());
+        // home: LoginScreen());
+        // home: JankenPage(),
+        // );
+>>>>>>> feature/003_win
         // home: const AppPage(),
-        home: NewLoginScreen());
+        // home: NewLoginScreen());
+        home: chenge_app());
   }
 }
