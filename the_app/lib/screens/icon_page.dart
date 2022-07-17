@@ -56,10 +56,10 @@ class _AppPageState extends State<AppPage> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    super.dispose();
     idleAnimation.dispose();
     onSelectedAnimation.dispose();
     onChangedAnimation.dispose();
+    super.dispose();
   }
 
   @override
