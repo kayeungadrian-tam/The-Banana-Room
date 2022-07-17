@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:the_app/Home.dart';
 
 import 'package:the_app/my_app/home.dart';
+import 'package:the_app/screens/login.dart';
 
-
+import 'Index.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -40,15 +42,14 @@ class MyApp extends StatelessWidget {
         // theme: _lightTheme,
         // home: const MyHomePage(title: 'The Banana Game'),
 
-
         // home: const IndexPageState());
         // home: LoginScreen());
         // home: JankenPage(),
         // );
 
         // home: const AppPage(),
-        // home: NewLoginScreen());
-        home: chenge_app());
-
+        home: NewLoginScreen());
+    // home: chenge_app());
+    // home: UserHome());
   }
 }
