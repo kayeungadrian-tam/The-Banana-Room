@@ -10,7 +10,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:lottie/lottie.dart';
 import 'package:the_app/screens/button.dart';
-
+import 'package:the_app/screens/register.dart';
 
 final titleFont = GoogleFonts.libreBaskerville(
   color: Colors.white,
@@ -79,7 +79,7 @@ class _NewLoginScreen extends State<NewLoginScreen> {
                                       height: 150,
                                       child: Center(
                                         child: Lottie.network(
-                                            "https://assets4.lottiefiles.com/packages/lf20_w9bdffcb.json"),
+                                            "https://assets10.lottiefiles.com/private_files/lf30_vuxs5lpt.json"),
                                       ),
                                     ),
                                     Center(
@@ -146,26 +146,9 @@ class _NewLoginScreen extends State<NewLoginScreen> {
                                               MaterialPageRoute(
                                                   // builder: (contex) => HomeScreen(),
                                                   builder: ((context) =>
-
-                                                      LoginScreen())),
+                                                      UserHome())),
                                             );
 
-                                            showDialog(
-                                              context: context,
-                                              builder: (ctx) => AlertDialog(
-                                                title: Text("Success!"),
-                                                content: Text('Welcome'),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      Navigator.of(ctx).pop();
-                                                    },
-                                                    child: Text('Okay'),
-                                                  )
-                                                ],
-                                              ),
-
-                                            );
                                             setState(() {
                                               isloading = false;
                                             });
@@ -194,6 +177,42 @@ class _NewLoginScreen extends State<NewLoginScreen> {
                                         }
                                       },
                                     ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                SignupScreen(),
+                                          ),
+                                        );
+                                      },
+                                      child: SizedBox(
+                                        height: 40,
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              "Don't have an account ?",
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  color: Colors.white),
+                                            ),
+                                            SizedBox(width: 10),
+                                            Hero(
+                                              tag: '1',
+                                              child: Text(
+                                                'Sign up',
+                                                style: TextStyle(
+                                                    fontSize: 21,
+                                                    fontWeight: FontWeight.bold,
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    color: Colors.white),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    )
                                   ],
                                 ))))));
   }
