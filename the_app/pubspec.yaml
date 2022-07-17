@@ -40,11 +40,8 @@ dependencies:
   firebase_analytics_web: ^0.4.0+17
   firebase_auth: ^3.0.1
 
-
-  cloud_firestore: ^3.1.13 
+  cloud_firestore: ^3.1.13
   cloud_firestore_web: ^2.6.13
-
-
 
   nanoid: ^1.0.0
   # google_ml_kit: ^0.11.0
@@ -57,11 +54,9 @@ dependencies:
   persistent_bottom_nav_bar: ^4.0.2
   curved_navigation_bar: ^1.0.3
 
-
-  cloud_firestore: ^3.1.13 
-  cloud_firestore_web: ^2.6.13
   flutter_chat_ui: ^1.2.0 # 追記（チャット）
-  
+  firebase_database: ^9.0.19
+  universal_io: ^1.0.1
 
 dev_dependencies:
   flutter_test:
@@ -96,8 +91,8 @@ flutter_icons:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-  - assets/
-  - assets/images/
+    - assets/
+    - assets/images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
