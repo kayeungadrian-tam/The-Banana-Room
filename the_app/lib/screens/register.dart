@@ -16,6 +16,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final _auth = FirebaseAuth.instance;
   String email = '';
   String password = '';
+  String name = '';
   bool isloading = false;
 
   @override
@@ -65,6 +66,24 @@ class _SignupScreenState extends State<SignupScreen> {
                             ),
                             SizedBox(height: 30),
                             TextFormField(
+                              keyboardType: TextInputType.text,
+                              onChanged: (value) {
+                                name = value.toString().trim();
+                              },
+                              validator: (value) => (value!.isEmpty)
+                                  ? ' Please enter username'
+                                  : null,
+                              textAlign: TextAlign.center,
+                              decoration: kTextFieldDecoration.copyWith(
+                                hintText: 'Enter Uersname',
+                                prefixIcon: Icon(
+                                  Icons.person,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 30),
+                            TextFormField(
                               keyboardType: TextInputType.emailAddress,
                               onChanged: (value) {
                                 email = value.toString().trim();
@@ -109,8 +128,12 @@ class _SignupScreenState extends State<SignupScreen> {
                                     isloading = true;
                                   });
                                   try {
-                                    await _auth.createUserWithEmailAndPassword(
-                                        email: email, password: password);
+                                    UserCredential result = await _auth
+                                        .createUserWithEmailAndPassword(
+                                            email: email, password: password);
+                                    User? user = result.user;
+                                    final tmpUser = _auth.currentUser!;
+                                    tmpUser.updateDisplayName(name);
 
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
