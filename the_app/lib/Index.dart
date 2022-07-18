@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:the_app/Home.dart';
@@ -11,6 +12,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lottie/lottie.dart';
 import 'package:the_app/screens/button.dart';
 import 'package:the_app/screens/register.dart';
+
+import 'package:the_app/src/GoogleLogin.dart';
 
 final titleFont = GoogleFonts.libreBaskerville(
   color: Colors.white,
@@ -47,173 +50,172 @@ class _NewLoginScreen extends State<NewLoginScreen> {
   String password = "";
   bool isloading = false;
 
+  void test() => {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+              // builder: (contex) => HomeScreen(),
+              builder: ((context) => UserHome())),
+        )
+      };
+
   @override
   build(BuildContext context) {
-    return Scaffold(
-        extendBodyBehindAppBar: true,
-        body:
-            // isloading
-            // ? Center(child: CircularProgressIndicator())
-            Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/banana3.jpg"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                child: isloading
-                    ? Center(
-                        child: Lottie.network(
-                            "https://assets10.lottiefiles.com/private_files/lf30_vhn0noat.json"),
-                      )
-                    : Form(
-                        key: formkey,
-                        child: AnnotatedRegion<SystemUiOverlayStyle>(
-                            value: SystemUiOverlayStyle.light,
-                            child: Padding(
-                                padding: const EdgeInsets.all(50.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      height: 150,
-                                      child: Center(
-                                        child: Lottie.network(
-                                            "https://assets10.lottiefiles.com/private_files/lf30_vuxs5lpt.json"),
-                                      ),
-                                    ),
-                                    Center(
-                                        child: Text("The Banana Room",
-                                            style: titleFont)),
-                                    const SizedBox(height: 20),
-                                    TextFormField(
-                                        style: const TextStyle(
-                                            color: Colors.white),
-                                        keyboardType: TextInputType.name,
-                                        onChanged: (value) {
-                                          email = value;
-                                        },
-                                        validator: (value) {
-                                          if (value!.isEmpty) {
-                                            return "Please enter your email";
-                                          }
-                                        },
-                                        textAlign: TextAlign.center,
-                                        decoration: inputStyle.copyWith(
-                                          hintText: "Enter your email",
-                                          hintStyle: hintstyle,
-                                          prefixIcon: const Icon(
-                                            Icons.person,
-                                            color: Colors.white,
-                                          ),
-                                        )),
-                                    const SizedBox(height: 10),
-                                    TextFormField(
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                      obscureText: true,
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return "Please enter Password";
-                                        }
-                                      },
-                                      onChanged: (value) {
-                                        password = value;
-                                      },
-                                      textAlign: TextAlign.center,
-                                      decoration: inputStyle.copyWith(
-                                          hintText: 'Password',
-                                          hintStyle: hintstyle,
-                                          prefixIcon: const Icon(
-                                            Icons.lock,
-                                            color: Colors.white,
-                                          )),
-                                    ),
-                                    const SizedBox(height: 20),
-                                    LoginSignupButton(
-                                      title: 'Login',
-                                      ontapp: () async {
-                                        if (formkey.currentState!.validate()) {
-                                          setState(() {
-                                            isloading = true;
-                                          });
-                                          try {
-                                            await _auth
-                                                .signInWithEmailAndPassword(
-                                                    email: email,
-                                                    password: password);
-                                            await Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  // builder: (contex) => HomeScreen(),
-                                                  builder: ((context) =>
-                                                      UserHome())),
-                                            );
+    final LoginPage = Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/banana3.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: isloading
+            ? Center(
+                child: Lottie.network(
+                    "https://assets10.lottiefiles.com/private_files/lf30_vhn0noat.json"),
+              )
+            : Form(
+                key: formkey,
+                child: AnnotatedRegion<SystemUiOverlayStyle>(
+                    value: SystemUiOverlayStyle.light,
+                    child: Padding(
+                        padding: const EdgeInsets.all(50.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 150,
+                              child: Center(
+                                child: Lottie.network(
+                                    "https://assets10.lottiefiles.com/private_files/lf30_vuxs5lpt.json"),
+                              ),
+                            ),
+                            Center(
+                                child:
+                                    Text("The Banana Room", style: titleFont)),
+                            const SizedBox(height: 20),
+                            TextFormField(
+                                style: const TextStyle(color: Colors.white),
+                                keyboardType: TextInputType.name,
+                                onChanged: (value) {
+                                  email = value;
+                                },
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "Please enter your email";
+                                  }
+                                },
+                                textAlign: TextAlign.center,
+                                decoration: inputStyle.copyWith(
+                                  hintText: "Enter your email",
+                                  hintStyle: hintstyle,
+                                  prefixIcon: const Icon(
+                                    Icons.person,
+                                    color: Colors.white,
+                                  ),
+                                )),
+                            const SizedBox(height: 10),
+                            TextFormField(
+                              style: const TextStyle(color: Colors.white),
+                              obscureText: true,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Please enter Password";
+                                }
+                              },
+                              onChanged: (value) {
+                                password = value;
+                              },
+                              textAlign: TextAlign.center,
+                              decoration: inputStyle.copyWith(
+                                  hintText: 'Password',
+                                  hintStyle: hintstyle,
+                                  prefixIcon: const Icon(
+                                    Icons.lock,
+                                    color: Colors.white,
+                                  )),
+                            ),
+                            const SizedBox(height: 20),
+                            LoginSignupButton(
+                              title: 'Login',
+                              ontapp: () async {
+                                if (formkey.currentState!.validate()) {
+                                  setState(() {
+                                    isloading = true;
+                                  });
+                                  try {
+                                    await _auth.signInWithEmailAndPassword(
+                                        email: email, password: password);
+                                    await Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          // builder: (contex) => HomeScreen(),
+                                          builder: ((context) => UserHome())),
+                                    );
 
-                                            setState(() {
-                                              isloading = false;
-                                            });
-                                          } on FirebaseAuthException catch (e) {
-                                            showDialog(
-                                              context: context,
-                                              builder: (ctx) => AlertDialog(
-                                                title:
-                                                    Text("Ops! Login Failed"),
-                                                content: Text('${e.message}'),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      Navigator.of(ctx).pop();
-                                                    },
-                                                    child: Text('Okay'),
-                                                  )
-                                                ],
-                                              ),
-                                            );
-                                            print(e);
-                                          }
-                                          setState(() {
-                                            isloading = false;
-                                          });
-                                        }
-                                      },
+                                    setState(() {
+                                      isloading = false;
+                                    });
+                                  } on FirebaseAuthException catch (e) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (ctx) => AlertDialog(
+                                        title: Text("Ops! Login Failed"),
+                                        content: Text('${e.message}'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(ctx).pop();
+                                            },
+                                            child: Text('Okay'),
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                    print(e);
+                                  }
+                                  setState(() {
+                                    isloading = false;
+                                  });
+                                }
+                              },
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => SignupScreen(),
+                                  ),
+                                );
+                              },
+                              child: SizedBox(
+                                height: 40,
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      "Don't have an account ?",
+                                      style: TextStyle(
+                                          fontSize: 18, color: Colors.white),
                                     ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                SignupScreen(),
-                                          ),
-                                        );
-                                      },
-                                      child: SizedBox(
-                                        height: 40,
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              "Don't have an account ?",
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  color: Colors.white),
-                                            ),
-                                            SizedBox(width: 10),
-                                            Hero(
-                                              tag: '1',
-                                              child: Text(
-                                                'Sign up',
-                                                style: TextStyle(
-                                                    fontSize: 21,
-                                                    fontWeight: FontWeight.bold,
-                                                    decoration: TextDecoration
-                                                        .underline,
-                                                    color: Colors.white),
-                                              ),
-                                            )
-                                          ],
-                                        ),
+                                    SizedBox(width: 10),
+                                    Hero(
+                                      tag: '1',
+                                      child: Text(
+                                        'Sign up',
+                                        style: TextStyle(
+                                            fontSize: 21,
+                                            fontWeight: FontWeight.bold,
+                                            decoration:
+                                                TextDecoration.underline,
+                                            color: Colors.white),
                                       ),
                                     )
                                   ],
-                                ))))));
+                                ),
+                              ),
+                            )
+                          ],
+                        )))));
+
+    return Scaffold(
+        extendBodyBehindAppBar: true,
+        body: this._auth.currentUser == null ? LoginPage : UserHome());
   }
 }
