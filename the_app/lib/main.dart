@@ -40,6 +40,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Flutter Demo',
         // theme: _lightTheme,
+        theme: ThemeData(
+            scaffoldBackgroundColor: Color.fromARGB(175, 255, 254, 216)),
         // home: const MyHomePage(title: 'The Banana Game'),
 
         // home: const IndexPageState());

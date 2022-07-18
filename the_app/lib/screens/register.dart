@@ -134,7 +134,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                     User? user = result.user;
                                     final tmpUser = _auth.currentUser!;
                                     tmpUser.updateDisplayName(name);
-
+                                    tmpUser.updatePhotoURL(
+                                        "https://99px.ru/sstorage/1/2018/09/image_11109180142213605071.png");
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         backgroundColor: Colors.blueGrey,
