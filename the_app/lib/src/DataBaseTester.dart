@@ -4,6 +4,7 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:lottie/lottie.dart';
 
 class RealtimeDatabase extends StatefulWidget {
   @override
@@ -28,7 +29,10 @@ class _RealtimeDatabaseState extends State<RealtimeDatabase> {
     return Flexible(
       child: Scrollbar(
         child: FirebaseAnimatedList(
-          defaultChild: const Center(child: CircularProgressIndicator()),
+          defaultChild: Center(
+            child: Lottie.network(
+                "https://assets10.lottiefiles.com/private_files/lf30_vhn0noat.json"),
+          ),
           query: databaseReference,
           sort: (a, b) => b.key!.compareTo(a.key!),
           padding: const EdgeInsets.all(8.0),
@@ -45,6 +49,52 @@ class _RealtimeDatabaseState extends State<RealtimeDatabase> {
     );
   }
 
+  Widget Dbox(bool isCurrentUser, String text, int sentTime) {
+    return Padding(
+        // add some padding
+        padding: EdgeInsets.fromLTRB(
+          isCurrentUser ? 64.0 : 0.0,
+          4,
+          isCurrentUser ? 16.0 : 64.0,
+          4,
+        ),
+        child: Align(
+          // align the child within the container
+          alignment:
+              isCurrentUser ? Alignment.centerRight : Alignment.centerLeft,
+          child: Column(
+            crossAxisAlignment: isCurrentUser
+                ? CrossAxisAlignment.end
+                : CrossAxisAlignment.start,
+            children: [
+              DecoratedBox(
+                // chat bubble decoration
+                decoration: BoxDecoration(
+                  color: isCurrentUser
+                      ? Color.fromRGBO(128, 109, 6, 1)
+                      : Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Text(
+                    text,
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                        color: isCurrentUser ? Colors.white : Colors.black87),
+                  ),
+                ),
+              ),
+              Text(
+                DateTime.fromMillisecondsSinceEpoch(sentTime)
+                    .toString()
+                    .substring(11, 16),
+                style: TextStyle(fontSize: 11, color: Colors.black45),
+              ),
+            ],
+          ),
+        ));
+  }
+
   Widget _messageFromSnapshot(
     DataSnapshot snapshot,
     Animation<double> animation,
@@ -53,35 +103,33 @@ class _RealtimeDatabaseState extends State<RealtimeDatabase> {
     if (val == null) {
       return Container();
     }
+
     final json = val as Map;
     final senderName = json['name'] as String? ?? '?? <unknown>';
     final msgText = json['text'] as String? ?? '??';
     final sentTime = json['timestamp'] as int? ?? 0;
-    // final senderPhotoUrl = json['senderPhotoUrl'] as String?;
+    final senderPhotoUrl = json["senderPhotoUrl"];
+
+    final bool isCurrentUser = senderName == _user?.displayName;
+
     final messageUI = Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      padding: const EdgeInsets.symmetric(vertical: 1.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: CircleAvatar(
-              child: Text(senderName[0]),
-            ),
-          ),
+          Container(
+              padding: const EdgeInsets.only(right: 10.0),
+              child: isCurrentUser
+                  ? Container()
+                  : CircleAvatar(
+                      backgroundImage: NetworkImage(senderPhotoUrl),
+                    )),
           Flexible(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(senderName),
-                Text(
-                  msgText,
-                  style: TextStyle(fontSize: 21),
-                ),
-                Text(
-                  DateTime.fromMillisecondsSinceEpoch(sentTime).toString(),
-                  style: TextStyle(fontSize: 11, color: Colors.black45),
-                ),
+                isCurrentUser ? Container() : Text('${senderName}'),
+                Dbox(isCurrentUser, msgText, sentTime),
               ],
             ),
           ),
@@ -101,8 +149,11 @@ class _RealtimeDatabaseState extends State<RealtimeDatabase> {
   Widget build(BuildContext context) {
     // readData();
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text('Flutter Realtime Database Demo'),
+        title: Center(child: Text('Chat Room')),
+        backgroundColor: Colors.transparent,
+        automaticallyImplyLeading: false,
       ),
       body: Center(
           child: Padding(
@@ -136,7 +187,8 @@ class _RealtimeDatabaseState extends State<RealtimeDatabase> {
     databaseReference.push().set({
       "name": "${_user?.displayName}",
       "timestamp": DateTime.now().millisecondsSinceEpoch,
-      "text": text
+      "text": text,
+      "senderPhotoUrl": "${_user?.photoURL}"
     });
   }
 
