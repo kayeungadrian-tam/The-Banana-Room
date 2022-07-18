@@ -155,30 +155,36 @@ class _RealtimeDatabaseState extends State<RealtimeDatabase> {
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
       ),
-      body: Center(
-          child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            _buildMessagesList(),
-            TextField(
-              maxLines: null,
-              decoration: InputDecoration(
-                labelText: 'borderless input',
-                suffixIcon: IconButton(
-                  icon: Icon(
-                    Icons.send,
-                  ),
-                  onPressed: () => sendMessage(_textController.text),
-                ),
+      body: SafeArea(
+        child: Center(
+            child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              _buildMessagesList(),
+              Divider(
+                color: Colors.grey[400],
+                thickness: 1,
               ),
-              controller: _textController,
-              onChanged: (String text) => print(text),
-            ),
-          ],
-        ),
-      )), //center
+              TextField(
+                maxLines: null,
+                decoration: InputDecoration(
+                  labelText: 'Message',
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      Icons.send,
+                    ),
+                    onPressed: () => sendMessage(_textController.text),
+                  ),
+                ),
+                controller: _textController,
+                onChanged: (String text) => print(text),
+              ),
+            ],
+          ),
+        )),
+      ), //center
     );
   }
 

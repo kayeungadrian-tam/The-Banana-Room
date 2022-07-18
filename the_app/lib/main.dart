@@ -41,17 +41,10 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         // theme: _lightTheme,
         theme: ThemeData(
-            scaffoldBackgroundColor: Color.fromARGB(175, 255, 254, 216)),
-        // home: const MyHomePage(title: 'The Banana Game'),
-
-        // home: const IndexPageState());
-        // home: LoginScreen());
-        // home: JankenPage(),
-        // );
-
-        // home: const AppPage(),
+          // brightness: Brightness.dark,
+          scaffoldBackgroundColor: Color.fromARGB(175, 255, 254, 216),
+        ),
+        debugShowCheckedModeBanner: false,
         home: NewLoginScreen());
-    // home: chenge_app());
-    // home: UserHome());
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:the_app/Dashboard.dart';
 import 'package:the_app/pages/profile_page.dart';
 import 'package:the_app/screens/icon_page.dart';
 import 'package:the_app/screens/login.dart';
@@ -8,6 +9,8 @@ import 'package:the_app/src/GoogleLogin.dart';
 import 'package:the_app/src/core/constants/lotties.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:the_app/sandbox/puzzle_page.dart';
+
+import 'game/Index.dart';
 
 class UserHome extends StatefulWidget {
   const UserHome({Key? key}) : super(key: key);
@@ -66,10 +69,12 @@ class _UserHomeState extends State<UserHome> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final _kTabPages = <Widget>[
       // const Center(child: Icon(Icons.cloud, size: 64.0, color: Colors.teal)),
-      PuzzlePage(),
+      // PuzzlePage(),
+      DashboardPage(),
       const Center(child: Icon(Icons.alarm, size: 64.0, color: Colors.cyan)),
       // const Center(child: Icon(Icons.alarm, size: 64.0, color: Colors.yellow)),
-      AppPage(),
+      // AppPage(),
+      Container(),
       RealtimeDatabase(),
       // const Center(child: Icon(Icons.alarm, size: 64.0, color: Colors.red)),
 
@@ -182,21 +187,29 @@ class _UserHomeState extends State<UserHome> with TickerProviderStateMixin {
               height: 50,
               items: <Widget>[
                 Icon(Icons.home, size: 26, color: Colors.black),
-                Icon(Icons.chat, size: 26, color: Colors.black),
+                Icon(Icons.notifications, size: 26, color: Colors.black),
                 Icon(Icons.gamepad_rounded, size: 40, color: Colors.black),
                 Icon(Icons.chat, size: 26, color: Colors.black),
                 Icon(Icons.person, size: 26, color: Colors.black),
               ],
               animationDuration: Duration(microseconds: 200),
-              index: 2,
+              index: 0,
               animationCurve: Curves.bounceInOut,
               onTap: (int index) async {
                 // debugPrint("Current Index is $index");
-                if (index == 5) {
+                if (index == 2) {
                   await Navigator.of(context).push(
-                    MaterialPageRoute(
-                        // builder: (contex) => HomeScreen(),
-                        builder: ((context) => LoginScreen())),
+                    // MaterialPageRoute(
+                    // builder: (contex) => HomeScreen(),
+                    // builder: ((context) => GameIndexPage())),
+                    PageRouteBuilder(
+                      pageBuilder: (c, a1, a2) => GameIndexPage(),
+                      transitionsBuilder: (c, anim, a2, child) =>
+                          FadeTransition(opacity: anim, child: child),
+                      transitionDuration: Duration(milliseconds: 500),
+                    ),
+
+                    // ),
                   );
                 } else {}
                 _onItemTapped(index);

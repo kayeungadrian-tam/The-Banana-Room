@@ -107,72 +107,75 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            toolbarHeight: 10,
-          ),
-          Center(
-              child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                    'Profile',
-                    style: TextStyle(
-                      fontSize: 35,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.black,
-                    ),
-                  ))),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: InkWell(
-                onTap: () {
-                  // navigateSecondPage(EditImagePage());
-                  _showPicker(context);
-                },
-                child: Stack(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: Color.fromARGB(250, 222, 222, 57),
-                      radius: 110,
-                      child: _photo != null
-                          ? ClipRRect(
-                              borderRadius: BorderRadius.circular(100),
-                              child: Image.file(
-                                _photo!,
-                                width: 200,
-                                height: 200,
-                                // fit: BoxFit.fitHeight,
-                              ),
-                            )
-                          : CircleAvatar(
-                              // backgroundImage: NetworkImage(
-                              //     'https://diamond-rm.net/wp-content/uploads/2020/10/980457ac46af26c09f3748d370ce3ab5-300x195.jpg'),
-                              backgroundImage: NetworkImage('${avatar}'),
-                              radius: 100,
-                            ),
-                    ),
-                    Positioned(
-                      child: buildEditIcon(Colors.black),
-                      top: 15,
-                      right: 20,
-                    )
-                  ],
-                )),
-          ),
-          buildUserInfoDisplay('${_auth.currentUser?.displayName}', 'Name'),
-          buildUserInfoDisplay('${_auth.currentUser?.photoURL}', 'PhotoURL'),
-          buildUserInfoDisplay('${_auth.currentUser?.email}', 'Email'),
-          Padding(
-            padding: const EdgeInsets.all(50.0),
-            child: Expanded(
-              child: GoogleLoginButtton(),
-              flex: 4,
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              toolbarHeight: 10,
             ),
-          )
-        ],
+            Center(
+                child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      'Profile',
+                      style: TextStyle(
+                        fontSize: 35,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.black,
+                      ),
+                    ))),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: InkWell(
+                  onTap: () {
+                    // navigateSecondPage(EditImagePage());
+                    _showPicker(context);
+                  },
+                  child: Stack(
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: Color.fromARGB(250, 222, 222, 57),
+                        radius: 110,
+                        child: _photo != null
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: Image.file(
+                                  _photo!,
+                                  width: 200,
+                                  height: 200,
+                                  // fit: BoxFit.fitHeight,
+                                ),
+                              )
+                            : CircleAvatar(
+                                // backgroundImage: NetworkImage(
+                                //     'https://diamond-rm.net/wp-content/uploads/2020/10/980457ac46af26c09f3748d370ce3ab5-300x195.jpg'),
+                                backgroundImage: NetworkImage('${avatar}'),
+                                radius: 100,
+                              ),
+                      ),
+                      Positioned(
+                        child: buildEditIcon(Colors.black),
+                        top: 15,
+                        right: 20,
+                      )
+                    ],
+                  )),
+            ),
+            buildUserInfoDisplay('${_auth.currentUser?.displayName}', 'Name'),
+            buildUserInfoDisplay('${_auth.currentUser?.photoURL}', 'PhotoURL'),
+            buildUserInfoDisplay('${_auth.currentUser?.email}', 'Email'),
+            Padding(
+              padding: const EdgeInsets.all(50.0),
+              child: Expanded(
+                child: GoogleLoginButtton(),
+                flex: 4,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
