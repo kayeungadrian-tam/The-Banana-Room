@@ -1,19 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:the_app/Home.dart';
 import 'package:the_app/screens/button.dart';
 
-import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:lottie/lottie.dart';
-import 'package:the_app/screens/button.dart';
 import 'package:the_app/screens/register.dart';
-
-import 'package:the_app/src/GoogleLogin.dart';
 
 final titleFont = GoogleFonts.libreBaskerville(
   color: Colors.white,
@@ -101,6 +96,8 @@ class _NewLoginScreen extends State<NewLoginScreen> {
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return "Please enter your email";
+                                  } else {
+                                    print("HERE");
                                   }
                                 },
                                 textAlign: TextAlign.center,
@@ -119,6 +116,8 @@ class _NewLoginScreen extends State<NewLoginScreen> {
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Please enter Password";
+                                } else {
+                                  print("HERE");
                                 }
                               },
                               onChanged: (value) {
@@ -174,6 +173,8 @@ class _NewLoginScreen extends State<NewLoginScreen> {
                                   setState(() {
                                     isloading = false;
                                   });
+                                } else {
+                                  print("HERE");
                                 }
                               },
                             ),
@@ -216,6 +217,7 @@ class _NewLoginScreen extends State<NewLoginScreen> {
 
     return Scaffold(
         extendBodyBehindAppBar: true,
-        body: this._auth.currentUser == null ? LoginPage : UserHome());
+        // body: this._auth.currentUser == null ? LoginPage : UserHome());
+        body: LoginPage);
   }
 }

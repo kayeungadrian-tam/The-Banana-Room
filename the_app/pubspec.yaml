@@ -52,11 +52,12 @@ dependencies:
   flip_card: ^0.6.0
   persistent_bottom_nav_bar: ^4.0.2
   curved_navigation_bar: ^1.0.3
-  flutter_animated_theme: ^1.0.0
+  # flutter_animated_theme: ^1.0.0
   flutter_chat_ui: ^1.2.0 # 追記（チャット）
   firebase_database: ^9.0.19
-  universal_io: ^1.0.1
+  # universal_io: ^1.0.1
   google_sign_in: ^5.0.5
+  web_socket_channel: ^2.2.0
 
 dev_dependencies:
   flutter_test:

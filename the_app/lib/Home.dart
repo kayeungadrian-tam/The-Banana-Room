@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:the_app/Dashboard.dart';
+import 'package:the_app/Web_test.dart';
 import 'package:the_app/pages/profile_page.dart';
-import 'package:the_app/screens/icon_page.dart';
-import 'package:the_app/screens/login.dart';
 import 'package:the_app/src/DataBaseTester.dart';
-import 'package:the_app/src/GoogleLogin.dart';
 import 'package:the_app/src/core/constants/lotties.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:the_app/sandbox/puzzle_page.dart';
 
 import 'game/Index.dart';
 
@@ -71,24 +68,18 @@ class _UserHomeState extends State<UserHome> with TickerProviderStateMixin {
       // const Center(child: Icon(Icons.cloud, size: 64.0, color: Colors.teal)),
       // PuzzlePage(),
       DashboardPage(),
-      const Center(child: Icon(Icons.alarm, size: 64.0, color: Colors.cyan)),
+      // const Center(child: Icon(Icons.alarm, size: 64.0, color: Colors.cyan)),
+      WebSocketPage(
+        title: 'Websocket tester',
+      ),
       // const Center(child: Icon(Icons.alarm, size: 64.0, color: Colors.yellow)),
       // AppPage(),
       Container(),
       RealtimeDatabase(),
       // const Center(child: Icon(Icons.alarm, size: 64.0, color: Colors.red)),
+      // const Center(child: Icon(Icons.alarm, size: 64.0, color: Colors.red))
 
       ProfilePage(),
-      // // Center(
-      // //   // mainAxisAlignment: MainAxisAlignment.center,
-      // //   child: Column(
-      // //     // mainAxisAlignment: MainAxisAlignment.center,
-      // //     children: [
-      // //       Icon(Icons.forum, size: 64.0, color: Colors.blue),
-      // //       GoogleLoginButtton()
-      // //     ],
-      // //   ),
-      // ),
     ];
     var _kBottmonNavBarItems = <BottomNavigationBarItem>[
       BottomNavigationBarItem(
