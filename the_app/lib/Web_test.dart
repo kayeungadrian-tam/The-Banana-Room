@@ -50,14 +50,15 @@ class _WebSocketPageState extends State<WebSocketPage> {
     return ListeningW();
   }
 
-  Widget Tite(String room) {
+  Widget Tite(String room, String host) {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(color: Colors.red),
         borderRadius: BorderRadius.circular(10),
       ),
       child: ListTile(
-        title: Text('Room: ${room}'),
+        title: Text('Room ${room}'),
+        subtitle: Text('by ${host}'),
         onTap: () => _enter(room),
       ),
     );
@@ -92,39 +93,19 @@ class _WebSocketPageState extends State<WebSocketPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Rooms(),
-                  Container(
-                    height: 120,
-                    child: ListView(children: <Widget>[
-                      Tite("101"),
-                      Tite("102"),
-                    ]),
+                  Text(
+                    "Member",
+                    style: TextStyle(fontSize: 24, color: Colors.black),
                   ),
-                  Form(
-                    child: TextFormField(
-                      controller: _controller,
-                      decoration: const InputDecoration(labelText: 'Name'),
-                      onChanged: (value) {
-                        name = value;
-                      },
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  Divider(
-                    height: 2,
-                  ),
-                  ElevatedButton(
-                      onPressed: _enterRoom, child: Text("Enter Room")),
-                  Text("${_user?.displayName}"),
-                  Text("${name}"),
                   Flexible(
                     child: SingleChildScrollView(
                       child: Container(
-                        height: 300,
+                        height: 250,
                         child: ListView(
                           children: snapshot.data!.docs
-                              .map((DocumentSnapshot document) {
+                              .map((DocumentSnapshot doc) {
                                 Map<String, dynamic> data =
-                                    document.data()! as Map<String, dynamic>;
+                                    doc.data()! as Map<String, dynamic>;
                                 return ListTile(
                                   title: Text(data["name"]),
                                   // subtitle: Text(data['company']),
@@ -136,6 +117,20 @@ class _WebSocketPageState extends State<WebSocketPage> {
                       ),
                     ),
                   ),
+                  Form(
+                    child: TextFormField(
+                      controller: _controller,
+                      decoration:
+                          const InputDecoration(labelText: 'Room number'),
+                      onChanged: (value) {
+                        name = value;
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  ElevatedButton(
+                      onPressed: _createRoom, child: Text("Create Room")),
+                  Text("DisplayName: ${_user?.displayName}")
                 ],
               ),
             ),
@@ -146,19 +141,6 @@ class _WebSocketPageState extends State<WebSocketPage> {
             child: const Icon(Icons.send),
           ), // This trailing comma makes auto-formatting nicer for build methods.
         );
-        // ListView(
-        //   children: snapshot.data!.docs
-        //       .map((DocumentSnapshot document) {
-        //         Map<String, dynamic> data =
-        //             document.data()! as Map<String, dynamic>;
-        //         return ListTile(
-        //           title: Text(data["name"]),
-        //           // subtitle: Text(data['company']),
-        //         );
-        //       })
-        //       .toList()
-        //       .cast(),
-        // );
       },
     );
   }
@@ -167,15 +149,12 @@ class _WebSocketPageState extends State<WebSocketPage> {
     return StreamBuilder<QuerySnapshot>(
       stream: _roomsStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (!snapshot.hasData) return new Text('Loading...');
+        if (!snapshot.hasData) return Text('Loading...');
         return Container(
-          height: 100,
-          child: new ListView(
+          height: 200,
+          child: ListView(
             children: snapshot.data!.docs.map((DocumentSnapshot document) {
-              return new ListTile(
-                title: new Text(document.id),
-                subtitle: new Text(document.id),
-              );
+              return Tite('${document.id}', '${document["name"]}');
             }).toList(),
           ),
         );
@@ -183,23 +162,32 @@ class _WebSocketPageState extends State<WebSocketPage> {
     );
   }
 
-  void _enterRoom() async {
+  void _createRoom() async {
     await FirebaseFirestore.instance
         .collection("Rooms")
-        .doc("101")
+        .doc("${name}")
+        .set({"name": "${_user?.displayName}"});
+    await FirebaseFirestore.instance
+        .collection("Rooms")
+        .doc("${name}")
         .collection("players")
         .doc("${name}_id")
-        .set({"name": "${name}"});
-
+        .set({"name": "${_user?.displayName}"});
     // setState(() {
     // name = "";
     // });
     // _controller.clear();
   }
 
-  void _enter(String room) {
+  void _enter(String room) async {
     setState(() {
       roomNumber = room;
+      FirebaseFirestore.instance
+          .collection("Rooms")
+          .doc("${room}")
+          .collection("players")
+          .doc("${name}_id")
+          .set({"name": "${_user?.displayName}"});
       _usersStream = FirebaseFirestore.instance
           .collection('Rooms')
           .doc("${room}")
