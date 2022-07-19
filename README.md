@@ -23,7 +23,7 @@ A list of useful resources!
 |  3 |    Flutter カードめくりアニメーションを実装する     |  [link](https://www.egao-inc.co.jp/programming/flutter_card_amination/)    |  JP    |
 |  4 |   Flutter大学      |   [link](https://flutteruniv.com/)    |  JP    |
 |  5 |     Flutter ML-kit    |   [link](https://github.com/bharat-biradar/Google-Ml-Kit-plugin)   |   EN   |
-
+|  6 |   Flutterでオンラインゲーム      |   [link](https://zenn.dev/yokojp/articles/f5080e3d4e94d9)    |  JP    |
 
 ## Error&Solutions
 
