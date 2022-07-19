@@ -2,10 +2,6 @@ import 'dart:async';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:the_app/Home.dart';
-
-import 'package:the_app/my_app/home.dart';
-import 'package:the_app/screens/login.dart';
 
 import 'Index.dart';
 import 'firebase_options.dart';
@@ -46,5 +42,8 @@ class MyApp extends StatelessWidget {
         ),
         debugShowCheckedModeBanner: false,
         home: NewLoginScreen());
+    // home: WebSocketPage(
+    // title: "Websocket tester",
+    // ));
   }
 }
