@@ -1,5 +1,7 @@
 # The-Banana-Room
-A simple game made in Flutter!!!
+My very first project with flutter!
+
+A simple multi-purpose UI made from scratch with firebase as the backend.
 
 ## Setup
 
