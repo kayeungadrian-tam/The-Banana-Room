@@ -1,4 +1,4 @@
-# The-Banana-Game
+# The-Banana-Room
 A simple game made in Flutter!!!
 
 ## Setup
