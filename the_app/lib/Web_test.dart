@@ -81,6 +81,7 @@ class _WebSocketPageState extends State<WebSocketPage> {
         return Scaffold(
           extendBodyBehindAppBar: true,
           appBar: AppBar(
+            automaticallyImplyLeading: false,
             title: Center(
                 child: Text(
                     "Room: ${roomNumber}, (${snapshot.data!.docs.length})")),

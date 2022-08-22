@@ -24,7 +24,7 @@ class _DashboardPageState extends State<DashboardPage> {
           width: 200,
           child: Image(
               image: NetworkImage(
-                  'https://m.media-amazon.com/images/I/61FJGiJCVlL._AC_SL1024_.jpg')),
+                  'https://lh3.googleusercontent.com/Tg0lgmZMUa72ftI56gYkSWCtBWSp5z804PUfr4eToU87agAiducmsGl3XpI0SqMg_ucXr1sqDN0cdXNOKWBrtJbbkcXH2DE0-0Hn3w=w1400-k')),
         ),
       ),
       back: Container(
@@ -61,6 +61,10 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
             const SizedBox(
               height: 42,
+              child: Text(
+                "My Collection",
+                style: TextStyle(fontSize: 32),
+              ),
             ),
             Row(
               children: [

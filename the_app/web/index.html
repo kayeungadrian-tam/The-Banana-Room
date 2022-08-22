@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <!--
     If you are serving your web app in a path other than the root, change the
@@ -27,7 +28,7 @@
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="icon" type="image/png" href="favicon.png" />
 
   <title>the_app</title>
   <link rel="manifest" href="manifest.json">
@@ -39,20 +40,36 @@
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
 </head>
+
 <body>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
   <script>
-    window.addEventListener('load', function(ev) {
+    var firebaseConfig = {
+      apiKey: 'AIzaSyBe9fgIrVGm_WA3GibZhPKT-Po6Us7fo0g',
+      appId: '1:477086842169:web:47d86c5a9c3e66fd49bce8',
+      messagingSenderId: '477086842169',
+      projectId: 'test-d6f36',
+      authDomain: 'test-d6f36.firebaseapp.com',
+      databaseURL: 'https://test-d6f36-default-rtdb.asia-southeast1.firebasedatabase.app',
+      storageBucket: 'test-d6f36.appspot.com',
+      measurementId: 'G-6QX9DMQC13',
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
+  <script>
+    window.addEventListener('load', function (ev) {
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,
         }
-      }).then(function(engineInitializer) {
+      }).then(function (engineInitializer) {
         return engineInitializer.initializeEngine();
-      }).then(function(appRunner) {
+      }).then(function (appRunner) {
         return appRunner.runApp();
       });
     });
   </script>
 </body>
+
 </html>

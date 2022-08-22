@@ -36,10 +36,10 @@ class _GameIndexPageState extends State<GameIndexPage>
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: Center(child: const Text('Room 504')),
-      ),
+      // appBar: AppBar(
+      // backgroundColor: Colors.transparent,
+      // title: Center(child: const Text('Room 504')),
+      // ),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(

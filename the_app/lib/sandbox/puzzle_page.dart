@@ -22,12 +22,14 @@ class _PuzzlePageState extends State<PuzzlePage> {
     8,
     0,
   ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text('スライドパズル'),
+        title: Center(child: const Text('スライドパズル')),
+        backgroundColor: Colors.transparent,
+        automaticallyImplyLeading: false,
         actions: [
           // 保存したタイルの状態を読zみ込むボタン
           IconButton(
@@ -59,10 +61,26 @@ class _PuzzlePageState extends State<PuzzlePage> {
             // シャッフルボタン
             SizedBox(
               width: double.infinity,
-              child: ElevatedButton.icon(
-                onPressed: () => shuffleTiles(),
-                icon: const Icon(Icons.shuffle),
-                label: const Text('シャッフル'),
+              height: 52,
+              child: Container(
+                height: 50,
+                // color: Color.fromARGB(145, 255, 235, 57),
+                child: ElevatedButton(
+                  onPressed: () => shuffleTiles(),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.white),
+                  ),
+                  child: const Text(
+                    'Shuffle',
+                    style: TextStyle(color: Colors.black, fontSize: 25),
+                  ),
+                ),
+
+                // ElevatedButton.icon(
+                //   onPressed: () => shuffleTiles(),
+                //   icon: const Icon(Icons.shuffle),
+                //   label: const Text('シャッフル'),
+                // )
               ),
             ),
           ],
@@ -189,9 +207,8 @@ class TilesView extends StatelessWidget {
         }
         return TileView(
           number: number,
-          // 正解の場合は色を変える
-          color: isCorrect ? Colors.green : Colors.blue,
-          // コールバックでタップされたことを伝える
+          correct: isCorrect,
+          color: isCorrect ? Color.fromARGB(255, 255, 235, 56) : Colors.grey,
           onPressed: () => onPressed(number),
         );
       }).toList(),
@@ -202,14 +219,16 @@ class TilesView extends StatelessWidget {
 class TileView extends StatelessWidget {
   final int number;
   final Color color;
+  final bool correct;
   final void Function() onPressed;
 
-  const TileView({
-    Key? key,
-    required this.number,
-    required this.color,
-    required this.onPressed,
-  }) : super(key: key);
+  const TileView(
+      {Key? key,
+      required this.number,
+      required this.color,
+      required this.onPressed,
+      required this.correct})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -217,10 +236,13 @@ class TileView extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         primary: color,
-        textStyle: const TextStyle(fontSize: 32),
+        textStyle: TextStyle(fontSize: 32),
       ),
       child: Center(
-        child: Text(number.toString()),
+        child: Text(
+          number.toString(),
+          style: TextStyle(color: correct ? Colors.black : Colors.white),
+        ),
       ),
     );
   }
